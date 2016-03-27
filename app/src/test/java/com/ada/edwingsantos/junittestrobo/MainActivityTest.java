@@ -1,7 +1,6 @@
 package com.ada.edwingsantos.junittestrobo;
 
 import android.content.Intent;
-import android.os.Build;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -12,7 +11,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
-import org.robolectric.internal.Shadow;
 import org.robolectric.shadows.ShadowActivity;
 
 import static org.junit.Assert.*;
@@ -22,7 +20,6 @@ import static org.junit.Assert.*;
 @Config(constants = BuildConfig.class, sdk = 21)
 
 public class MainActivityTest {
-
     private MainActivity activity;
     @Before
     public void setup(){
@@ -67,4 +64,30 @@ public class MainActivityTest {
         Intent actualIntent = shadowActivity.getNextStartedActivity();
         assertTrue(actualIntent.filterEquals(expectedIntent));
     }
+
+    @Test
+    @Config(qualifiers = "es")
+    public void localizedSpanish(){
+        TextView textView = (TextView) activity.findViewById(R.id.tv_spanish);
+        assertEquals(textView.getText().toString(), "Hola Mundo");
+
+        /*
+
+            org.junit.ComparisonFailure:
+            Expected :Hola Mundo
+            Actual   :Hola mMundo
+
+         */
+    }
+    @Test
+    @Config(qualifiers = "fr")
+    public void localizedFrenchHelloWorld() {
+        TextView tvHelloWorld = (TextView)activity.findViewById(R.id.tv_spanish);
+        assertEquals(tvHelloWorld.getText().toString(), "Bonjour le monde!");
+    }
 }
+
+
+/*
+https://github.com/codepath/android_guides/wiki/Unit-Testing-with-Robolectric
+ */

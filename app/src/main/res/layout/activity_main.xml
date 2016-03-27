@@ -22,4 +22,11 @@
         android:layout_height="wrap_content"
         android:text="Logins"
         />
+    <TextView
+        android:id="@+id/tv_spanish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hola Mundo"
+        />
+
 </RelativeLayout>
